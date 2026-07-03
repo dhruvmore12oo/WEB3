@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #09090B;
+  --color-card: #18181B;
+  --color-primary: #3B82F6;
+  --color-secondary: #8B5CF6;
+  --color-success: #22C55E;
+  --color-danger: #EF4444;
+  --color-text: #F8FAFC;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+  }
+}
+
+.glass {
+  background-color: color-mix(in srgb, var(--color-card) 50%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
