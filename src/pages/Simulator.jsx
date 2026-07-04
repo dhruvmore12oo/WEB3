@@ -100,23 +100,27 @@ const Simulator = () => {
   const isChainBroken = blocks.length > 1 && blocks[1].previousHash !== blocks[0].hash;
 
   return (
-    <div className="min-h-screen pt-32 pb-20">
-      <div className="container mx-auto px-6">
+    <div className="min-h-screen pt-40 pb-32 bg-background relative overflow-hidden">
+      {/* Background Shapes */}
+      <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="container mx-auto px-6 max-w-6xl relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-primary/20 text-primary mb-6">
+          <div className="inline-flex items-center justify-center p-4 rounded-[20px] bg-white border border-border shadow-sm text-primary mb-8">
             <Cpu className="w-8 h-8" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">Blockchain <span className="text-primary">Simulator</span></h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 text-secondary tracking-tight">Blockchain <span className="text-primary">Simulator</span></h1>
+          <p className="text-xl text-muted max-w-2xl mx-auto mb-10 font-medium leading-relaxed">
             Interact with a live cryptographic hash function. See how blocks connect to form an immutable chain.
           </p>
           <button 
             onClick={resetChain}
-            className="flex items-center gap-2 mx-auto px-6 py-2 glass border border-white/10 hover:bg-white/5 rounded-xl text-white transition-colors"
+            className="flex items-center gap-2 mx-auto px-8 py-3 bg-white border border-border hover:border-secondary/30 shadow-sm hover:shadow-md rounded-full text-secondary font-bold transition-all hover:-translate-y-0.5"
           >
             <RotateCcw className="w-4 h-4" /> Reset Chain
           </button>
@@ -132,6 +136,7 @@ const Simulator = () => {
               onDataChange={handleDataChange}
               onMine={mineBlock}
               isConnected={index === 0 || blocks[index].previousHash === blocks[index - 1].hash}
+              isMining={isMining && miningIndex === index}
             />
           ))}
 
@@ -141,30 +146,32 @@ const Simulator = () => {
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="mt-12 mx-auto max-w-md bg-danger/10 border border-danger/30 p-6 rounded-2xl flex items-start gap-4 text-danger"
+            className="mt-16 mx-auto max-w-2xl bg-danger/10 border border-danger/30 p-8 rounded-[30px] flex items-start gap-5 text-danger shadow-[0_10px_40px_-10px_rgba(239,68,68,0.2)]"
           >
-            <ShieldAlert className="w-8 h-8 flex-shrink-0" />
+            <div className="bg-white p-3 rounded-2xl shadow-sm shrink-0">
+              <ShieldAlert className="w-8 h-8 text-danger" />
+            </div>
             <div>
-              <h4 className="text-lg font-bold mb-2">Chain Broken!</h4>
-              <p className="text-sm opacity-90">
+              <h4 className="text-2xl font-bold mb-3">Chain Broken!</h4>
+              <p className="text-lg font-medium opacity-90 leading-relaxed">
                 You modified the data in Block #1, which changed its hash. Block #2 is now invalid because its "Previous Hash" no longer matches Block #1. This is how immutability works!
               </p>
             </div>
           </motion.div>
         )}
 
-        <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <div className="glass p-6 rounded-2xl">
-            <h3 className="text-lg font-bold text-white mb-2">The Nonce</h3>
-            <p className="text-gray-400 text-sm">A "number only used once." Miners repeatedly change this number and recalculate the hash until they find a hash that starts with specific characters (like '00').</p>
+        <div className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="bg-white p-8 rounded-[30px] border border-border shadow-sm hover:shadow-md transition-shadow">
+            <h3 className="text-2xl font-bold text-secondary mb-4">The Nonce</h3>
+            <p className="text-muted font-medium leading-relaxed text-sm">A "number only used once." Miners repeatedly change this number and recalculate the hash until they find a hash that starts with specific characters (like '00').</p>
           </div>
-          <div className="glass p-6 rounded-2xl">
-            <h3 className="text-lg font-bold text-white mb-2">The Hash</h3>
-            <p className="text-gray-400 text-sm">A digital fingerprint of the data. Even a tiny change to the block's data completely changes the resulting SHA-256 hash output.</p>
+          <div className="bg-white p-8 rounded-[30px] border border-border shadow-sm hover:shadow-md transition-shadow">
+            <h3 className="text-2xl font-bold text-secondary mb-4">The Hash</h3>
+            <p className="text-muted font-medium leading-relaxed text-sm">A digital fingerprint of the data. Even a tiny change to the block's data completely changes the resulting SHA-256 hash output.</p>
           </div>
-          <div className="glass p-6 rounded-2xl">
-            <h3 className="text-lg font-bold text-white mb-2">Chain Integrity</h3>
-            <p className="text-gray-400 text-sm">Each block contains the hash of the previous block. If past data is altered, all subsequent blocks become invalid instantly.</p>
+          <div className="bg-white p-8 rounded-[30px] border border-border shadow-sm hover:shadow-md transition-shadow">
+            <h3 className="text-2xl font-bold text-secondary mb-4">Chain Integrity</h3>
+            <p className="text-muted font-medium leading-relaxed text-sm">Each block contains the hash of the previous block. If past data is altered, all subsequent blocks become invalid instantly.</p>
           </div>
         </div>
       </div>

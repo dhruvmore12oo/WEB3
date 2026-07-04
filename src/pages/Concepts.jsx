@@ -104,22 +104,25 @@ const Concepts = () => {
   ];
 
   return (
-    <div className="min-h-screen pt-32 pb-20">
+    <div className="min-h-screen pt-40 pb-32">
       <div className="container mx-auto px-6 max-w-5xl">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white tracking-tight">Core <span className="text-primary">Concepts</span></h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-primary/20 bg-primary/5 text-primary mb-6 text-sm font-semibold shadow-sm">
+            Knowledge Base
+          </div>
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 text-secondary tracking-tight">Core <span className="text-primary">Concepts</span></h1>
+          <p className="text-xl text-muted max-w-2xl mx-auto font-medium leading-relaxed">
             Understand the foundational differences between traditional technologies and the decentralized Web3 ecosystem.
           </p>
         </motion.div>
 
-        <div className="space-y-16">
+        <div className="space-y-20">
           {comparisons.map((comp, idx) => (
-            <ComparisonCard key={idx} left={comp.left} right={comp.right} delay={idx * 0.15} />
+            <ComparisonCard key={idx} left={comp.left} right={comp.right} delay={idx * 0.1} />
           ))}
         </div>
       </div>

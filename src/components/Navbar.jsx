@@ -23,47 +23,46 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'glass py-4' : 'bg-transparent py-6'}`}>
-      <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
-        <NavLink to="/" className="flex items-center gap-2 text-2xl font-bold tracking-tighter text-white">
+    <div className="fixed top-0 w-full z-50 flex justify-center p-4">
+      <nav className={`transition-all duration-300 w-full max-w-6xl rounded-[30px] flex justify-between items-center px-6 py-4 ${scrolled ? 'glass' : 'bg-transparent'}`}>
+        <NavLink to="/" className="flex items-center gap-2 text-2xl font-bold tracking-tight text-secondary">
           <Hexagon className="text-primary w-8 h-8" />
           <span>Web3<span className="text-primary">Learn</span></span>
         </NavLink>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-2 bg-white/50 border border-border/50 backdrop-blur-md px-2 py-1.5 rounded-full">
           {navLinks.map((link) => (
             <NavLink
               key={link.name}
               to={link.path}
               className={({ isActive }) =>
-                `text-sm font-medium transition-colors hover:text-primary ${
-                  isActive ? 'text-primary' : 'text-gray-400'
+                `px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                  isActive 
+                    ? 'bg-primary text-white shadow-md' 
+                    : 'text-muted hover:text-secondary hover:bg-black/5'
                 }`
               }
             >
               {link.name}
             </NavLink>
           ))}
-          <button className="bg-primary/10 text-primary border border-primary/20 px-4 py-2 rounded-lg hover:bg-primary/20 transition-colors font-medium text-sm">
-            Connect Wallet
-          </button>
         </div>
 
         {/* Mobile Nav Toggle */}
-        <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
+        <button className="md:hidden text-secondary p-2 bg-white/50 rounded-full" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X /> : <Menu />}
         </button>
-      </div>
+      </nav>
 
       {/* Mobile Nav */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full glass flex flex-col items-center py-6 gap-6 md:hidden border-t border-white/10"
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            className="absolute top-24 left-4 right-4 glass rounded-[30px] flex flex-col items-center py-6 gap-4 md:hidden shadow-xl"
           >
             {navLinks.map((link) => (
               <NavLink
@@ -71,8 +70,8 @@ const Navbar = () => {
                 to={link.path}
                 onClick={() => setIsOpen(false)}
                 className={({ isActive }) =>
-                  `text-lg font-medium transition-colors hover:text-primary ${
-                    isActive ? 'text-primary' : 'text-gray-400'
+                  `px-6 py-3 rounded-full text-lg font-semibold transition-colors w-11/12 text-center ${
+                    isActive ? 'bg-primary text-white shadow-md' : 'text-muted hover:text-secondary hover:bg-black/5'
                   }`
                 }
               >
@@ -82,7 +81,7 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </div>
   );
 };
 
