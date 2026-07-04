@@ -1,16 +1,27 @@
-# React + Vite
+# Web3 Educational Platform 🌐
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A premium, interactive Web3 educational dashboard and blockchain simulator built with React, Vite, Tailwind CSS, and Framer Motion. 
 
-Currently, two official plugins are available:
+🚀 **Live Demo:** [https://web-3-rust.vercel.app/](https://web-3-rust.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- **Interactive Blockchain Simulator:** Modify block data and watch how it breaks the chain, then re-mine the blocks using SHA-256 hashing.
+- **Live Crypto Prices:** Real-time fetching of top Web3 assets directly from CoinGecko.
+- **Concepts Dictionary:** A highly visual, side-by-side comparison of core Web3 concepts (Web2 vs Web3, Public/Private Keys, etc).
+- **Premium SaaS UI:** Glassmorphism, deep color palettes, and fluid animations.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the Oxlint configuration
+- React 18
+- Vite
+- Tailwind CSS
+- Framer Motion
+- Lucide React
+- React Router DOM
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Running Locally
+
+1. Clone the repository
+2. Run `npm install`
+3. Run `npm run dev`
