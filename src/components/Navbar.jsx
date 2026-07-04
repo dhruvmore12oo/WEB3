@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, X, Hexagon } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
@@ -24,10 +24,9 @@ const Navbar = () => {
 
   return (
     <div className="fixed top-0 w-full z-50 flex justify-center p-4">
-      <nav className={`transition-all duration-300 w-full max-w-6xl rounded-[30px] flex justify-between items-center px-6 py-4 ${scrolled ? 'glass' : 'bg-transparent'}`}>
-        <NavLink to="/" className="flex items-center gap-2 text-2xl font-bold tracking-tight text-secondary">
-          <Hexagon className="text-primary w-8 h-8" />
-          <span>Web3<span className="text-primary">Learn</span></span>
+      <nav className={`transition-all duration-300 w-full max-w-6xl rounded-[30px] flex justify-between items-center px-8 py-3 ${scrolled ? 'glass' : 'bg-transparent'}`}>
+        <NavLink to="/" className="flex items-center">
+          <img src="/logo.png" alt="Learn Blockchain" className="h-20 md:h-24 object-contain transition-all duration-300 scale-150 origin-left" />
         </NavLink>
 
         {/* Desktop Nav */}

@@ -37,7 +37,7 @@ const Home = () => {
 
       {/* About Arbitrum Section */}
       <section className="py-24 relative overflow-hidden bg-background">
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1/3 h-2/3 bg-primary/5 blur-[100px] pointer-events-none rounded-[100px]" />
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1/3 h-2/3 bg-cyan/5 blur-[100px] pointer-events-none rounded-[100px]" />
         
         <div className="container mx-auto px-6 relative z-10 max-w-6xl">
           <div className="flex flex-col lg:flex-row items-center gap-16">
@@ -69,7 +69,7 @@ const Home = () => {
               className="lg:w-1/2 w-full"
             >
               <div className="bg-white p-10 rounded-[40px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-border relative">
-                <div className="absolute -top-6 -right-6 w-24 h-24 bg-primary/10 rounded-full blur-[20px]" />
+                <div className="absolute -top-6 -right-6 w-24 h-24 bg-cyan/10 rounded-full blur-[20px]" />
                 <h3 className="text-2xl font-bold mb-8 text-secondary border-b border-border pb-6">The Arbitrum Solution</h3>
                 <ul className="space-y-8">
                   {[
@@ -78,8 +78,8 @@ const Home = () => {
                     { title: "Real-world Advantages", desc: "Enables complex DeFi applications and Web3 games that were previously impossible." }
                   ].map((item, i) => (
                     <li key={i} className="flex gap-5">
-                      <div className="mt-1 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <ChevronRight className="w-5 h-5 text-primary" />
+                      <div className="mt-1 w-10 h-10 rounded-full bg-cyan/10 flex items-center justify-center flex-shrink-0">
+                        <ChevronRight className="w-5 h-5 text-cyan" />
                       </div>
                       <div>
                         <h4 className="text-lg font-bold text-secondary mb-1">{item.title}</h4>
@@ -104,9 +104,9 @@ const Home = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: "Lower Fees", value: "Up to 100x", desc: "cheaper than Ethereum L1", color: "from-orange-400 to-orange-600" },
-              { title: "Fast Confirmation", value: "~0.25s", desc: "block time on Arbitrum One", color: "from-blue-400 to-blue-600" },
-              { title: "Ethereum Security", value: "100%", desc: "anchored to Ethereum's security", color: "from-green-400 to-green-600" }
+              { title: "Lower Fees", value: "Up to 100x", desc: "cheaper than Ethereum L1", color: "from-primary to-pink-500" },
+              { title: "Fast Confirmation", value: "~0.25s", desc: "block time on Arbitrum One", color: "from-cyan to-teal-400" },
+              { title: "Ethereum Security", value: "100%", desc: "anchored to Ethereum's security", color: "from-blue-500 to-indigo-500" }
             ].map((stat, i) => (
               <motion.div 
                 key={i}

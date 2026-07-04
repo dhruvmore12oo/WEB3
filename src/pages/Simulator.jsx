@@ -103,7 +103,7 @@ const Simulator = () => {
     <div className="min-h-screen pt-40 pb-32 bg-background relative overflow-hidden">
       {/* Background Shapes */}
       <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-cyan/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-6 max-w-6xl relative z-10">
         <motion.div 
@@ -111,7 +111,7 @@ const Simulator = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-20"
         >
-          <div className="inline-flex items-center justify-center p-4 rounded-[20px] bg-white border border-border shadow-sm text-primary mb-8">
+          <div className="inline-flex items-center justify-center p-4 rounded-[20px] bg-white border border-border shadow-sm text-cyan mb-8">
             <Cpu className="w-8 h-8" />
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 text-secondary tracking-tight">Blockchain <span className="text-primary">Simulator</span></h1>
@@ -120,7 +120,7 @@ const Simulator = () => {
           </p>
           <button 
             onClick={resetChain}
-            className="flex items-center gap-2 mx-auto px-8 py-3 bg-white border border-border hover:border-secondary/30 shadow-sm hover:shadow-md rounded-full text-secondary font-bold transition-all hover:-translate-y-0.5"
+            className="flex items-center gap-2 mx-auto px-8 py-3 bg-white border border-border hover:border-cyan/50 hover:text-cyan shadow-sm hover:shadow-md rounded-full text-secondary font-bold transition-all hover:-translate-y-0.5"
           >
             <RotateCcw className="w-4 h-4" /> Reset Chain
           </button>
