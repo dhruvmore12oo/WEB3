@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { RefreshCw, Search, AlertCircle } from 'lucide-react';
 import PriceCard from '../components/PriceCard';
@@ -18,15 +18,19 @@ const Prices = () => {
   const [error, setError] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const fetchingRef = useRef(false);
+  
+  // Track ongoing request internally within loadPrices
+  const [isFetching, setIsFetching] = useState(false);
 
-  const loadPrices = useCallback(async (signal) => {
-    if (fetchingRef.current) return;
-    fetchingRef.current = true;
+  const loadPrices = useCallback(async (signal = null) => {
+    // Only use the signal if it's explicitly an AbortSignal to avoid MouseEvent crashes
+    const validSignal = signal instanceof AbortSignal ? signal : null;
+    
+    setIsFetching(true);
     setLoading(true);
     setError(null);
     try {
-      const data = await fetchCryptoPrices(signal);
+      const data = await fetchCryptoPrices(validSignal);
       if (data) {
         setPrices(data);
         setLastUpdated(new Date());
@@ -36,7 +40,7 @@ const Prices = () => {
         setError(err.message || 'Failed to fetch live prices. Please try again later.');
       }
     } finally {
-      fetchingRef.current = false;
+      setIsFetching(false);
       setLoading(false);
     }
   }, []);

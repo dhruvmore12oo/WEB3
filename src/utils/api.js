@@ -2,7 +2,12 @@ const COINGECKO_API_URL = 'https://api.coingecko.com/api/v3';
 
 export const fetchCryptoPrices = async (signal) => {
   const ids = 'bitcoin,ethereum,arbitrum,polygon-ecosystem-token,solana';
-  const url = `${COINGECKO_API_URL}/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;
+  let url = `${COINGECKO_API_URL}/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;
+
+  // Add API key as a query parameter (required for client-side/browser requests to avoid CORS errors)
+  if (import.meta.env.VITE_COINGECKO_API_KEY) {
+    url += `&x_cg_demo_api_key=${import.meta.env.VITE_COINGECKO_API_KEY}`;
+  }
 
   try {
     const response = await fetch(url, { signal });
