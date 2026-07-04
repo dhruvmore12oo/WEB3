@@ -23,10 +23,10 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="fixed top-0 w-full z-50 flex justify-center p-4">
-      <nav className={`transition-all duration-300 w-full max-w-6xl rounded-[30px] flex justify-between items-center px-8 py-3 ${scrolled ? 'glass' : 'bg-transparent'}`}>
+    <div className="fixed top-0 w-full z-50 flex justify-center p-3">
+      <nav className={`transition-all duration-300 w-full max-w-6xl rounded-2xl flex justify-between items-center px-6 py-2 ${scrolled ? 'glass' : 'bg-transparent'}`}>
         <NavLink to="/" className="flex items-center">
-          <img src="/logo.png" alt="Learn Blockchain" className="h-20 md:h-24 object-contain transition-all duration-300 scale-150 origin-left" />
+          <img src="/logo.png" alt="Learn Blockchain" className="h-16 md:h-24 object-contain transition-all duration-300 scale-[1.5] origin-left" />
         </NavLink>
 
         {/* Desktop Nav */}

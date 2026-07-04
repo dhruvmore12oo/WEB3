@@ -191,11 +191,11 @@ const Concepts = () => {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-32 bg-background relative overflow-hidden">
+    <div className="min-h-screen pt-28 pb-20 bg-background relative overflow-hidden">
       
       {/* Background */}
-      <div className="fixed top-0 right-0 w-[800px] h-[800px] bg-cyan/5 rounded-full blur-[150px] pointer-events-none -z-10" />
-      <div className="fixed bottom-0 left-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] pointer-events-none -z-10" />
+      <div className="fixed top-0 right-0 w-[600px] h-[600px] bg-cyan/5 rounded-full blur-[100px] pointer-events-none -z-10" />
+      <div className="fixed bottom-0 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px] pointer-events-none -z-10" />
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         
@@ -203,39 +203,39 @@ const Concepts = () => {
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16 max-w-3xl mx-auto"
+          className="text-center mb-12 max-w-2xl mx-auto"
         >
-          <div className="inline-flex items-center justify-center p-4 rounded-[20px] bg-white border border-border shadow-sm text-cyan mb-6">
-            <BookOpen className="w-8 h-8" />
+          <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-white border border-border shadow-sm text-cyan mb-5">
+            <BookOpen className="w-6 h-6" />
           </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 text-secondary tracking-tight">Core <span className="text-primary">Concepts</span></h1>
-          <p className="text-xl text-muted font-medium leading-relaxed">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-5 text-secondary tracking-tight">Core <span className="text-primary">Concepts</span></h1>
+          <p className="text-lg text-muted font-medium leading-relaxed">
             Master the foundational technologies of the future. Dive deep into detailed, side-by-side comparisons of the most important Web3 concepts.
           </p>
         </motion.div>
 
-        <div className="flex flex-col lg:flex-row gap-12 items-start relative">
+        <div className="flex flex-col lg:flex-row gap-8 items-start relative">
           
           {/* Sticky Sidebar Navigation */}
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            className="w-full lg:w-1/4 lg:sticky lg:top-32 bg-white/50 backdrop-blur-xl border border-border rounded-[30px] p-6 shadow-[0_15px_50px_-15px_rgba(0,0,0,0.05)]"
+            className="w-full lg:w-1/4 lg:sticky lg:top-24 bg-white/50 backdrop-blur-xl border border-border rounded-2xl p-5 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)]"
           >
-            <h3 className="text-lg font-bold text-secondary mb-4 px-4">Topics Covered</h3>
-            <nav className="flex flex-col gap-2">
+            <h3 className="text-base font-bold text-secondary mb-3 px-3">Topics Covered</h3>
+            <nav className="flex flex-col gap-1.5">
               {CONCEPTS_DATA.map((concept) => (
                 <button
                   key={concept.id}
                   onClick={() => scrollToSection(concept.id)}
-                  className={`text-left px-5 py-4 rounded-[20px] font-bold text-sm transition-all flex items-center justify-between group ${
+                  className={`text-left px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center justify-between group ${
                     activeSection === concept.id
-                      ? 'bg-primary text-white shadow-md'
+                      ? 'bg-primary text-white shadow-sm'
                       : 'hover:bg-gray-100 text-muted hover:text-secondary'
                   }`}
                 >
                   {concept.title}
-                  <div className={`w-2 h-2 rounded-full transition-all ${
+                  <div className={`w-1.5 h-1.5 rounded-full transition-all ${
                     activeSection === concept.id ? 'bg-white' : 'bg-transparent group-hover:bg-border'
                   }`} />
                 </button>
@@ -244,7 +244,7 @@ const Concepts = () => {
           </motion.div>
 
           {/* Content Area */}
-          <div className="w-full lg:w-3/4 flex flex-col gap-16">
+          <div className="w-full lg:w-3/4 flex flex-col gap-10">
             {CONCEPTS_DATA.map((concept, index) => (
               <ConceptDetailCard key={concept.id} concept={concept} index={index} />
             ))}

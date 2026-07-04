@@ -6,7 +6,11 @@ import { calculateHash } from '../utils/hash';
 
 const INITIAL_BLOCKS = [
   { data: 'Alice sends 10 ETH to Bob', nonce: 0, hash: '', previousHash: '0000000000000000000000000000000000000000000000000000000000000000' },
-  { data: 'Bob sends 5 ETH to Charlie', nonce: 0, hash: '', previousHash: '' }
+  { data: 'Bob sends 5 ETH to Charlie', nonce: 0, hash: '', previousHash: '' },
+  { data: 'Charlie sends 2 ETH to Dave', nonce: 0, hash: '', previousHash: '' },
+  { data: 'Dave sends 1 ETH to Eve', nonce: 0, hash: '', previousHash: '' },
+  { data: 'Eve sends 0.5 ETH to Frank', nonce: 0, hash: '', previousHash: '' },
+  { data: 'Frank sends 0.1 ETH to Grace', nonce: 0, hash: '', previousHash: '' }
 ];
 
 const Simulator = () => {
@@ -94,83 +98,94 @@ const Simulator = () => {
 
   const resetChain = async () => {
     setBlocks(JSON.parse(JSON.stringify(INITIAL_BLOCKS)));
-    // The useEffect will catch the empty hash and recalculate
   };
 
-  const isChainBroken = blocks.length > 1 && blocks[1].previousHash !== blocks[0].hash;
+  // Check if any block (other than genesis) has a broken previous hash
+  const brokenBlockIndex = blocks.findIndex((block, idx) => idx > 0 && block.previousHash !== blocks[idx - 1].hash);
+  const isChainBroken = brokenBlockIndex !== -1;
 
   return (
-    <div className="min-h-screen pt-40 pb-32 bg-background relative overflow-hidden">
+    <div className="min-h-screen pt-32 pb-24 bg-background relative overflow-hidden">
       {/* Background Shapes */}
-      <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-cyan/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-10 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[80px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan/10 rounded-full blur-[80px] pointer-events-none" />
 
-      <div className="container mx-auto px-6 max-w-6xl relative z-10">
+      <div className="container mx-auto px-6 max-w-7xl relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-20"
+          className="text-center mb-12 max-w-3xl mx-auto"
         >
-          <div className="inline-flex items-center justify-center p-4 rounded-[20px] bg-white border border-border shadow-sm text-cyan mb-8">
-            <Cpu className="w-8 h-8" />
+          <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-white border border-border shadow-sm text-cyan mb-5">
+            <Cpu className="w-6 h-6" />
           </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 text-secondary tracking-tight">Blockchain <span className="text-primary">Simulator</span></h1>
-          <p className="text-xl text-muted max-w-2xl mx-auto mb-10 font-medium leading-relaxed">
-            Interact with a live cryptographic hash function. See how blocks connect to form an immutable chain.
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-5 text-secondary tracking-tight">Blockchain <span className="text-primary">Simulator</span></h1>
+          <p className="text-base md:text-lg text-muted font-medium leading-relaxed mb-8">
+            Interact with a live cryptographic hash function. Modify any block's data to see how it invalidates the entire chain, forcing you to re-mine the blocks to restore trust.
           </p>
           <button 
             onClick={resetChain}
-            className="flex items-center gap-2 mx-auto px-8 py-3 bg-white border border-border hover:border-cyan/50 hover:text-cyan shadow-sm hover:shadow-md rounded-full text-secondary font-bold transition-all hover:-translate-y-0.5"
+            className="flex items-center gap-2 mx-auto px-6 py-2.5 bg-white border border-border hover:border-cyan/50 hover:text-cyan shadow-sm hover:shadow-md rounded-full text-secondary font-bold text-sm transition-all hover:-translate-y-0.5"
           >
             <RotateCcw className="w-4 h-4" /> Reset Chain
           </button>
         </motion.div>
 
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 justify-center items-center relative">
-          
-          {blocks.map((block, index) => (
-            <Block 
-              key={index}
-              block={block}
-              index={index}
-              onDataChange={handleDataChange}
-              onMine={mineBlock}
-              isConnected={index === 0 || blocks[index].previousHash === blocks[index - 1].hash}
-              isMining={isMining && miningIndex === index}
-            />
-          ))}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-12 lg:gap-y-20 lg:gap-x-16 justify-items-center relative mt-16">
+          {blocks.map((block, index) => {
+            const orderClasses = [
+              'order-1 lg:order-1', // Index 0
+              'order-2 lg:order-2', // Index 1
+              'order-3 lg:order-3', // Index 2
+              'order-4 lg:order-6', // Index 3
+              'order-5 lg:order-5', // Index 4
+              'order-6 lg:order-4', // Index 5
+            ];
 
+            return (
+              <Block 
+                key={index}
+                block={block}
+                index={index}
+                onDataChange={handleDataChange}
+                onMine={mineBlock}
+                isConnected={index === 0 || blocks[index].previousHash === blocks[index - 1].hash}
+                isMining={isMining && miningIndex === index}
+                orderClass={orderClasses[index]}
+              />
+            )
+          })}
         </div>
 
         {isChainBroken && (
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="mt-16 mx-auto max-w-2xl bg-danger/10 border border-danger/30 p-8 rounded-[30px] flex items-start gap-5 text-danger shadow-[0_10px_40px_-10px_rgba(239,68,68,0.2)]"
+            className="mt-16 mx-auto max-w-3xl bg-danger/10 border border-danger/30 p-6 rounded-3xl flex flex-col md:flex-row items-center md:items-start gap-5 text-danger shadow-sm text-center md:text-left"
           >
             <div className="bg-white p-3 rounded-2xl shadow-sm shrink-0">
               <ShieldAlert className="w-8 h-8 text-danger" />
             </div>
             <div>
-              <h4 className="text-2xl font-bold mb-3">Chain Broken!</h4>
-              <p className="text-lg font-medium opacity-90 leading-relaxed">
-                You modified the data in Block #1, which changed its hash. Block #2 is now invalid because its "Previous Hash" no longer matches Block #1. This is how immutability works!
+              <h4 className="text-xl font-bold mb-2">Chain Broken!</h4>
+              <p className="text-base font-medium opacity-90 leading-relaxed">
+                You modified the data in an earlier block, which changed its hash. Block #{brokenBlockIndex + 1} and subsequent blocks are now invalid because their "Previous Hash" references no longer match. Re-mine the invalid blocks to restore trust.
               </p>
             </div>
           </motion.div>
         )}
 
-        <div className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <div className="bg-white p-8 rounded-[30px] border border-border shadow-sm hover:shadow-md transition-shadow">
-            <h3 className="text-2xl font-bold text-secondary mb-4">The Nonce</h3>
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="bg-white p-6 rounded-2xl border border-border shadow-sm hover:shadow-md transition-shadow">
+            <h3 className="text-xl font-bold text-secondary mb-3">The Nonce</h3>
             <p className="text-muted font-medium leading-relaxed text-sm">A "number only used once." Miners repeatedly change this number and recalculate the hash until they find a hash that starts with specific characters (like '00').</p>
           </div>
-          <div className="bg-white p-8 rounded-[30px] border border-border shadow-sm hover:shadow-md transition-shadow">
-            <h3 className="text-2xl font-bold text-secondary mb-4">The Hash</h3>
+          <div className="bg-white p-6 rounded-2xl border border-border shadow-sm hover:shadow-md transition-shadow">
+            <h3 className="text-xl font-bold text-secondary mb-3">The Hash</h3>
             <p className="text-muted font-medium leading-relaxed text-sm">A digital fingerprint of the data. Even a tiny change to the block's data completely changes the resulting SHA-256 hash output.</p>
           </div>
-          <div className="bg-white p-8 rounded-[30px] border border-border shadow-sm hover:shadow-md transition-shadow">
-            <h3 className="text-2xl font-bold text-secondary mb-4">Chain Integrity</h3>
+          <div className="bg-white p-6 rounded-2xl border border-border shadow-sm hover:shadow-md transition-shadow">
+            <h3 className="text-xl font-bold text-secondary mb-3">Chain Integrity</h3>
             <p className="text-muted font-medium leading-relaxed text-sm">Each block contains the hash of the previous block. If past data is altered, all subsequent blocks become invalid instantly.</p>
           </div>
         </div>
